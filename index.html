@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COLE5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#0d0c0a; --ivory:#efe9dc; --gold:#b89a62; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    background:#0b0d10;
+    color:var(--ivory); display:grid; place-items:center; overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* Fine film grain so the black reads as material, not a flat screen. */
+  body::after {
+    content:""; position:fixed; inset:-50%; pointer-events:none; opacity:.07;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grain 1.2s steps(4) infinite;
+  }
+  /* Slow drifting light: two soft blooms, warm and cool, moving over deep slate. */
+  .glow { position:fixed; border-radius:50%; filter:blur(90px); pointer-events:none; }
+  .g1 { width:60vmax; height:60vmax; left:-10vmax; top:-20vmax; background:radial-gradient(circle, rgba(184,154,98,.16), transparent 65%); animation:drift1 38s ease-in-out infinite alternate; }
+  .g2 { width:70vmax; height:70vmax; right:-25vmax; bottom:-30vmax; background:radial-gradient(circle, rgba(70,92,112,.22), transparent 65%); animation:drift2 46s ease-in-out infinite alternate; }
+  .vignette { position:fixed; inset:0; pointer-events:none; background:radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.55) 100%); }
+  @keyframes drift1 { to { transform:translate(18vmax, 14vmax) scale(1.15); } }
+  @keyframes drift2 { to { transform:translate(-16vmax, -12vmax) scale(.9); } }
+  .mark { position:relative; z-index:1; }
+  .mark { display:flex; flex-direction:column; align-items:center; gap:2.4rem; }
+  .logo { width:clamp(180px,22vw,320px); height:auto; animation:rise 3s .4s cubic-bezier(.2,.7,.2,1) both; filter:drop-shadow(0 6px 30px rgba(184,154,98,.18)); }
+  @keyframes rise { from { opacity:0; transform:translateY(10px); } }
+  .rule { width:0; height:1px; background:linear-gradient(90deg, transparent, var(--gold), transparent); animation:draw 2.4s .4s cubic-bezier(.6,0,.2,1) forwards; }
+  .word {
+    font-family:'Cormorant Garamond', serif; font-weight:500; font-variant-numeric:lining-nums; font-feature-settings:'lnum';
+    font-size:clamp(2.4rem, 6vw, 5.2rem); letter-spacing:.38em; padding-left:.38em; line-height:1;
+    background:linear-gradient(100deg, #cfc6b3 30%, #fff8ea 50%, #cfc6b3 70%); background-size:250% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    opacity:0; filter:blur(8px);
+    animation:reveal 2.6s 1.2s cubic-bezier(.2,.7,.2,1) forwards, sheen 9s 4s ease-in-out infinite;
+  }
+  @keyframes draw { to { width:min(220px, 40vw); } }
+  @keyframes reveal { to { opacity:1; filter:blur(0); } }
+  @keyframes sheen { 0%,100% { background-position:100% 0; } 50% { background-position:0 0; } }
+  @keyframes grain { 25%{transform:translate(-3%,2%)} 50%{transform:translate(2%,-3%)} 75%{transform:translate(-2%,-2%)} }
+  @media (prefers-reduced-motion:reduce) { *, *::after { animation:none !important; } .word { opacity:1; filter:none; } .rule { width:min(220px,40vw); } .logo { opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+  <div class="glow g1"></div><div class="glow g2"></div><div class="vignette"></div>
+  <div class="mark" aria-label="COLE5">
+    <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 265" aria-hidden="true"><defs><linearGradient id="ivory" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff8ea"/><stop offset=".55" stop-color="#e6dcc7"/><stop offset="1" stop-color="#b89a62"/></linearGradient></defs><g transform="translate(4.666667 -5.333333) scale(.333333333)" fill="url(#ivory)"><path d="M703 131 C639 105 590 99 530 99 C309 99 130 249 130 435 C130 620 290 753 477 753 C531 753 574 737 615 711 C573 723 551 727 519 727 C365 727 238 606 238 439 C238 267 369 130 535 130 C592 130 645 139 694 153 Z"/><path d="M547 229 L841 229 L794 301 L544 301 L486 408 C532 382 577 372 622 372 C741 372 836 456 836 560 C836 693 690 796 531 796 C476 796 431 785 391 767 C442 774 484 776 527 775 C646 765 740 684 740 575 C740 494 668 433 581 433 C521 433 464 456 414 493 Z"/></g></svg>
+    </div>
+</body>
+</html>
